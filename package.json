@@ -1,5 +1,5 @@
 {
-  "name": "lenddo-service-clients",
+  "name": "lenddo",
   "version": "1.5.0",
   "description": "client base for lenddo services",
   "main": "index.js",
