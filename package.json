@@ -11,5 +11,6 @@
   },
   "author": "Howard D. Lince III",
   "license": "ISC",
-  "dependencies": {}
+  "dependencies": {},
+  "repository": "Howard3/node-lenddo"
 }
