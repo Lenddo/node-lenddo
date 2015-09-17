@@ -1,0 +1,15 @@
+{
+  "name": "lenddo-service-clients",
+  "version": "1.5.0",
+  "description": "client base for lenddo services",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "Howard D. Lince III",
+  "license": "ISC",
+  "dependencies": {}
+}
