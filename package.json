@@ -1,6 +1,6 @@
 {
   "name": "lenddo",
-  "version": "1.5.2",
+  "version": "1.5.4",
   "description": "client base for lenddo services",
   "main": "index.js",
   "directories": {
@@ -9,8 +9,8 @@
   "scripts": {
     "test": "mocha"
   },
-  "author": "Howard D. Lince III",
+  "author": "Lenddo",
   "license": "ISC",
   "dependencies": {},
-  "repository": "Howard3/node-lenddo"
+  "repository": "Lenddo/node-lenddo"
 }
