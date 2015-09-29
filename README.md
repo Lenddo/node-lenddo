@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/Lenddo/node-lenddo.svg?branch=master)](https://travis-ci.org/Lenddo/node-lenddo)
 # Lenddo Service Client
 Please reference the /sample/implementation.js file for an example on how
 you can implement the Lenddo REST services.
