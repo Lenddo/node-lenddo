@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/Lenddo/node-lenddo.svg?branch=master)](https://travis-ci.org/Lenddo/node-lenddo)
+[![Build Status](https://travis-ci.org/Lenddo/node-lenddo.svg?branch=master)](https://travis-ci.org/Lenddo/node-lenddo) [![npm](https://img.shields.io/npm/v/lenddo.svg?style=plastic)](https://www.npmjs.com/package/lenddo) [![npm](https://img.shields.io/npm/l/lenddo.svg?style=plastic)](https://www.npmjs.com/package/lenddo)
 # Lenddo Service Client
 Please reference the /sample/implementation.js file for an example on how
 you can implement the Lenddo REST services.
