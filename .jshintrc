@@ -1,0 +1,35 @@
+{
+	"freeze": true,
+	"trailing": true,
+	"white": true,
+	"singleGroups": true,
+	"browserify": true,
+	"strict": true,
+	"onevar": true,
+	"latedef": "nofunc",
+	"node": true,
+	"maxstatements": 20,
+	"futurehostile": true,
+	"noarg": true,
+	"unused": "vars",
+	"eqeqeq": true,
+	"maxdepth": 5,
+	"nonbsp": true,
+	"browser": true,
+	"bitwise": true,
+	"curly": true,
+	"maxparams": 5,
+	"undef": true,
+	"maxcomplexity": 10,
+	"nonew": true,
+	"forin": true,
+	"globals": [
+		/* MOCHA */
+		"describe",
+		"it",
+		"before",
+		"beforeEach",
+		"after",
+		"afterEach"
+	]
+}

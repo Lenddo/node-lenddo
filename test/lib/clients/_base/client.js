@@ -23,7 +23,7 @@ describe('client/_base', function(){
 			it('should set an authentication property.', function(){
 				client.config(1,2,"http://noop.lenddo.com");
 				client.authentication.should.be.instanceOf(Authentication);
-			})
+			});
 
 			it('should set the configuration property', function() {
 				client.config(1,2,"https://noop.lenddo.com");
@@ -49,19 +49,27 @@ describe('client/_base', function(){
 					requestOptions.should.have.property('method').and.equal(method.toUpperCase());
 					requestOptions.should.have.property('headers').and.have.properties('Authorization', 'Date')
 				})
-			})
+			});
 
 			it('should encode the body', function() {
 				var request = client.post('foo').body({bar:'baz', pets: {cat:[0], dog:[4,2,{you:'know'}]}});
 
 				request.requestState().body.should.equal('{"bar":"baz","pets":{"cat":[0],"dog":[4,2,{"you":"know"}]}}');
-			})
+			});
 
 			it('should encode the query', function() {
 				var request = client.get('bar').query({filter:'dogs', delete:['cats', 'alligators'], eat: ['pizza', 'garlic bread']});
 
 				request.requestState().query.should.equal("filter=dogs&delete=cats&delete=alligators&eat=pizza&eat=garlic%20bread");
-			})
+			});
+
+			describe('headers', function () {
+				it('should properly set the Content-Length value.', function () {
+					var request = client.post('bar').body({ "foo": "abc![]ñáéí" });
+
+					request.requestState().options.headers[ 'Content-length' ].should.equal(24);
+				});
+			});
 		});
 	});
 });

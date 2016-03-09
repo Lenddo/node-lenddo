@@ -1,0 +1,41 @@
+{
+	"disallowArrowFunctions": true,
+	"disallowMixedSpacesAndTabs": true,
+	"validateIndentation": "\t",
+	"maximumLineLength": {
+		"value": 120,
+		"tabSize": 4,
+		"allExcept": [
+			"regex",
+			"urlComments",
+			"functionSignature"
+		]
+	},
+	"validateLineBreaks": "LF",
+	"validateParameterSeparator": ", ",
+	"disallowShorthandArrowFunctions": true,
+	"disallowMultipleLineStrings": true,
+	"disallowMultiLineTernary": true,
+	"disallowMultipleLineBreaks": true,
+	"disallowYodaConditions": true,
+	"requireMultipleVarDecl": {
+		"allExcept": [
+			"require"
+		]
+	},
+	"requirePaddingNewLineAfterVariableDeclaration": true,
+	"requirePaddingNewLinesAfterUseStrict": true,
+	"requireSpacesInFunction": {
+		"beforeOpeningCurlyBrace": true
+	},
+	"requireSpacesInsideArrayBrackets": "allButNested",
+	"requireSpacesInsideObjectBrackets": "all",
+	"requireSpaceBetweenArguments": true,
+	"requireCapitalizedConstructors": true,
+	"requireSpaceBeforeBlockStatements": true,
+	"requireSpaceBeforeKeywords": true,
+	"requireSpaceAfterKeywords": true,
+	"requireSpacesInConditionalExpression": true,
+	"disallowAnonymousFunctions": true,
+	"maxErrors": 150
+}

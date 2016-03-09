@@ -1,19 +1,20 @@
 {
   "name": "lenddo",
-  "version": "1.6.1",
+  "version": "1.6.2",
   "description": "client base for lenddo services",
   "main": "index.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "node ./node_modules/istanbul/lib/cli.js cover node_modules/mocha/bin/_mocha"
   },
   "author": "Lenddo",
   "license": "ISC",
   "dependencies": {},
   "repository": "Lenddo/node-lenddo",
   "devDependencies": {
+    "istanbul": "^0.4.2",
     "mocha": "^2.3.3",
     "should": "^7.1.0"
   }
