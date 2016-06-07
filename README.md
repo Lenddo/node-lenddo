@@ -8,24 +8,27 @@ Please perform the following command to install Lenddo into your
 node.js codebase: `npm install lenddo`
 
 # Sample Usage
+All of the following examples assume you you have used the setup defined immediately below. This is used to structure your request to our API.
+```javascript
+// Configuration - Both of these can be found after logging into the Partners Dashboard.
+// If you have difficulty obtaining these please contact your Lenddo account manager.
+var id = '{YOUR_API_USER_ID}';
+var secret = '{YOUR_API_SECRET}';
+
+// Import clients
+var lenddo_clients = require('lenddo').clients;
+```
 ## Get User Score & Verification
 ```javascript
-// Configurable Bits
-var host = 'https://scoreservice.lenddo.com';
-var id = '';
-var secret = '';
+// this is the client ID that you sent us initially.
+var client_id = '{YOUR_CLIENT_ID}'
 
-// Request Bits
-var client_id = ''
-
-// Start main script
-var lenddo_service_clients = require('../').clients;
-var ScoreService = lenddo_service_clients.Score;
-
-// Configure ScoreService
-var client_instance = (new ScoreService()).config(id, secret, host);
-
-// Retrieve Score
+// begin main script
+var ScoreService = lenddo_clients.Score;
+var client_instance = new ScoreService(id, secret);
+```
+### Score
+```javascript
 client_instance.ClientScore.get(client_id).exec(function(err, result) {
   var response = result.response;
   /**
@@ -34,13 +37,32 @@ client_instance.ClientScore.get(client_id).exec(function(err, result) {
   **/
   console.log(response.data);
 });
-
-// Retrieve Verification
+```
+### Verification
+```javascript
 client_instance.ClientVerification.get(client_id).exec(function(err, result) {
   var response = result.response;
   /**
   * response.data should contain a large object detailing the verification results.
   **/
   console.log(response.data);
+});
+```
+
+## Retrieving the MobileData
+If you have an implementation with our android SDK and want access to the mobile data stream please use the following API call:
+```javascript
+// this is the partner script ID you used in the data SDK
+var partner_script_id = '{YOUR_PARTNER_SCRIPT_ID}';
+
+var NetworkService = lenddo_clients.Network;
+var client_instance = new NetworkService(id, secret);
+
+NetworkService.MobileData.get(partner_script_id).exec(function(err, response) {
+    /**
+    * Here you will see a dump of the data received. Please consult with your Lenddo account manager
+    * for documentation regarding the schema that you can expect to see here.
+    */
+    console.log(response.data);
 });
 ```
