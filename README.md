@@ -58,7 +58,7 @@ var partner_script_id = '{YOUR_PARTNER_SCRIPT_ID}';
 var NetworkService = lenddo_clients.Network;
 var client_instance = new NetworkService(id, secret);
 
-NetworkService.MobileData.get(partner_script_id).exec(function(err, response) {
+client_instance.MobileData.get(partner_script_id).exec(function(err, response) {
     /**
     * Here you will see a dump of the data received. Please consult with your Lenddo account manager
     * for documentation regarding the schema that you can expect to see here.
