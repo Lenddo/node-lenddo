@@ -5,8 +5,6 @@
     "mocha": true,
     "es6": true
   },
-  "globals": [
-  ],
   "rules": {
     "no-extend-native": 2,
     "no-extra-parens": 0,
@@ -66,7 +64,10 @@
     ],
     "one-var": [
       2,
-      "never"
+      {
+        "uninitialized": "always",
+        "initialized": "never"
+      }
     ],
     "newline-after-var": [
       2,
@@ -84,6 +85,7 @@
       2,
       {}
     ],
-    "func-names": 2
+    "func-names": [ "error", "never" ],
+    "brace-style": [ "error", "1tbs" ]
   }
 }
