@@ -18,10 +18,11 @@ var secret = '{YOUR_API_SECRET}';
 // Import clients
 var lenddo_clients = require('lenddo').clients;
 ```
-## Get User Score & Verification
+## Get User Score and Verification
 ```javascript
 // this is the client ID that you sent us initially.
-var client_id = '{YOUR_CLIENT_ID}'
+var client_id = '{YOUR_CLIENT_ID}';
+var partner_script_id = '{THE_PARTNER_SCRIPT_FOR_YOUR_CLIENT_ID}';
 
 // begin main script
 var ScoreService = lenddo_clients.Score;
@@ -29,24 +30,26 @@ var client_instance = new ScoreService(id, secret);
 ```
 ### Score
 ```javascript
-client_instance.ClientScore.get(client_id).exec(function(err, result) {
-  var response = result.response;
-  /**
-  * response.data should look like the following:
-  * { score: 521, flags: [] }
-  **/
-  console.log(response.data);
-});
+client_instance.ClientScore.get(client_id, partner_script_id)
+    .exec(function(err, result) {
+      var response = result.response;
+      /**
+      * response.data should look like the following:
+      * { score: 521, flags: [] }
+      **/
+      console.log(response.data);
+    });
 ```
 ### Verification
 ```javascript
-client_instance.ClientVerification.get(client_id).exec(function(err, result) {
-  var response = result.response;
-  /**
-  * response.data should contain a large object detailing the verification results.
-  **/
-  console.log(response.data);
-});
+client_instance.ClientVerification.get(client_id, partner_script_id)
+    .exec(function(err, result) {
+      var response = result.response;
+      /**
+      * response.data should contain a large object detailing the verification results.
+      **/
+      console.log(response.data);
+    });
 ```
 
 ## Retrieving the MobileData
