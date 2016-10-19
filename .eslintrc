@@ -1,0 +1,87 @@
+{
+  "env": {
+    "browser": true,
+    "node": true,
+    "mocha": true,
+    "es6": true
+  },
+  "rules": {
+    "no-extend-native": 2,
+    "no-extra-parens": 0,
+    "strict": [ "error", "global" ],
+    "no-use-before-define": [
+      2,
+      {
+        "functions": false
+      }
+    ],
+    "max-statements": [
+      2,
+      20
+    ],
+    "no-caller": 2,
+    "no-unused-vars": 2,
+    "eqeqeq": 2,
+    "max-depth": [
+      2,
+      5
+    ],
+    "no-irregular-whitespace": 2,
+    "no-bitwise": 2,
+    "curly": 2,
+    "max-params": [
+      2,
+      6
+    ],
+    "no-undef": 2,
+    "complexity": [
+      2,
+      10
+    ],
+    "no-new": 2,
+    "guard-for-in": 2,
+    "no-mixed-spaces-and-tabs": 2,
+    "indent": [
+      2,
+      "tab",
+      {
+        "SwitchCase": 1
+      }
+    ],
+    "max-len": [
+      2,
+      120
+    ],
+    "linebreak-style": [
+      2,
+      "unix"
+    ],
+    "no-multi-str": 2,
+    "no-multiple-empty-lines": 2,
+    "yoda": [
+      2,
+      "never"
+    ],
+    "one-var": [
+      2,
+      "never"
+    ],
+    "newline-after-var": [
+      2,
+      "always"
+    ],
+    "array-bracket-spacing": [
+      2,
+      "always"
+    ],
+    "space-before-blocks": [
+      2,
+      "always"
+    ],
+    "keyword-spacing": [
+      2,
+      {}
+    ],
+    "func-names": 2
+  }
+}
