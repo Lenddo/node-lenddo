@@ -1,6 +1,6 @@
 {
   "name": "lenddo",
-  "version": "1.7.2",
+  "version": "1.8.1",
   "description": "client base for lenddo services",
   "main": "index.js",
   "directories": {
@@ -12,7 +12,7 @@
   "author": "Lenddo",
   "license": "ISC",
   "dependencies": {},
-  "repository": "Lenddo/node-lenddo",
+  "repository": "github:Lenddo/node-lenddo",
   "devDependencies": {
     "istanbul": "^0.4.2",
     "mocha": "^2.3.3",
