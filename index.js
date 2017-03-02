@@ -1,3 +1,6 @@
+"use strict";
+
 module.exports = {
-	clients: require('./lib/clients')
-}
+	clients: require('./lib/clients'),
+	verification: require('./lib/Verification')
+};
