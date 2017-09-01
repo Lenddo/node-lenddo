@@ -66,12 +66,12 @@ describe('/index', function() {
 			});
 
 			//this test should be skipped and will be used in dev mode only
-			it.skip('Should trigger the endpoint properly (please do not run with prod env)', function(done) {
+			it.only('Should trigger the endpoint properly (please do not run with prod env)', function(done) {
 				var authorize_client = new lib.clients.Authorize();
 
 				authorize_client.config(
 					'ad0215000000000000000001',
-					'se7q075RagJBn9y5aPHGJ0mTVQpJkpfK1G85jumokHrvMJxV/necLaI+zmQ08E4vhzR9WyV7HgyYjuxEbEAktA==',
+					'ihavesecrets--',
 					'http://127.0.0.1:8010');
 
 				try {

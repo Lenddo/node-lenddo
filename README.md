@@ -18,6 +18,37 @@ var secret = '{YOUR_API_SECRET}';
 // Import clients
 var lenddo_clients = require('lenddo').clients;
 ```
+
+## Submitting Onboarding Priority Data
+```javascript
+// this is the client ID that you sent us initially.
+var client_id = '{YOUR_CLIENT_ID}';
+var application_id = '{THE_UNIQUE_APPLICATION_IDENTIFIER}';
+var partner_script_id = '{THE_PARTNER_SCRIPT_FOR_THE_APPLICATION_ID}';
+var priority_data = '{THE_PARTNER_DATA_AND_VERIFICATION_DATA_TO_USE}';
+
+// begin main script
+var AuthorizeService = lenddo_clients.Authorize;
+var authorize_client = new AuthorizeService(client_id, client_secret);
+
+```
+### PriorityData
+```javascript
+authorize_client.PriorityData.post(application_id, partner_script_id, priority_data)
+    .exec(function(err, result) {
+    	if (err) { //there should be no error
+    		throw err;
+    	} else if (result.response.code !== 200) {
+    		throw new Error(result.response.raw); //throw the failed response from AUTHOPRIZE
+    	}
+      var response = result.response;
+      /**
+      * the submission should be a success from here
+      **/
+      console.log(response.data);
+    });
+```
+
 ## Get User Score and Verification
 ```javascript
 // this is the client ID that you sent us initially.
