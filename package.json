@@ -1,6 +1,6 @@
 {
   "name": "lenddo",
-  "version": "1.10.0",
+  "version": "1.10.1",
   "description": "client base for lenddo services",
   "main": "index.js",
   "directories": {
