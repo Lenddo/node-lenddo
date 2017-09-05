@@ -66,7 +66,7 @@ describe('/index', function() {
 			});
 
 			//this test should be skipped and will be used in dev mode only
-			it.only('Should trigger the endpoint properly (please do not run with prod env)', function(done) {
+			it.skip('Should trigger the endpoint properly (please do not run with prod env)', function(done) {
 				var authorize_client = new lib.clients.Authorize();
 
 				authorize_client.config(
