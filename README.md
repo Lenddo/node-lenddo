@@ -39,7 +39,7 @@ authorize_client.PriorityData.post(application_id, partner_script_id, priority_d
     	if (err) { //there should be no error
     		throw err;
     	} else if (result.response.code !== 200) {
-    		throw new Error(result.response.raw); //throw the failed response from AUTHOPRIZE
+    		throw new Error(result.response.raw); //throw the failed response from AUTHORIZE
     	}
       var response = result.response;
       /**
