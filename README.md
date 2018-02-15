@@ -21,15 +21,15 @@ var lenddo_clients = require('lenddo').clients;
 
 ## Submitting Onboarding Priority Data
 ```javascript
-// this is the client ID that you sent us initially.
-var client_id = '{YOUR_CLIENT_ID}';
+// this is the application_id (formerly client_id) that you sent us initially.
+var application_id = '{YOUR_APPLICATION_ID}';
 var application_id = '{THE_UNIQUE_APPLICATION_IDENTIFIER}';
 var partner_script_id = '{THE_PARTNER_SCRIPT_FOR_THE_APPLICATION_ID}';
 var priority_data = '{THE_PARTNER_DATA_AND_VERIFICATION_DATA_TO_USE}';
 
 // begin main script
 var AuthorizeService = lenddo_clients.Authorize;
-var authorize_client = new AuthorizeService(client_id, client_secret);
+var authorize_client = new AuthorizeService(application_id, client_secret);
 
 ```
 ### PriorityData
@@ -49,19 +49,43 @@ authorize_client.PriorityData.post(application_id, partner_script_id, priority_d
     });
 ```
 
-## Get User Score and Verification
+## Score Service (Get User Score, Verification, etc.)
 ```javascript
 // this is the client ID that you sent us initially.
-var client_id = '{YOUR_CLIENT_ID}';
-var partner_script_id = '{THE_PARTNER_SCRIPT_FOR_YOUR_CLIENT_ID}';
+var application_id = '{YOUR_APPLICATION_ID}';
+var partner_script_id = '{THE_PARTNER_SCRIPT_IDENTIFIER}';
 
 // begin main script
 var ScoreService = lenddo_clients.Score;
 var client_instance = new ScoreService(id, secret);
 ```
+### Application Score Card
+```javascript
+client_instance.ApplicationScoreCard.get(application_id, partner_script_id)
+    .exec(function(err, result) {
+      var response = result.response;
+      console.log(response.data);
+    });
+```
+### Application Features
+```javascript
+client_instance.ApplicationFeatures.get(application_id, partner_script_id)
+    .exec(function(err, result) {
+      var response = result.response;
+      console.log(response.data);
+    });
+```
+### Application Multiple Scores
+```javascript
+client_instance.ApplicationMultipleScores.get(application_id, partner_script_id)
+    .exec(function(err, result) {
+      var response = result.response;
+      console.log(response.data);
+    });
+```
 ### Score
 ```javascript
-client_instance.ClientScore.get(client_id, partner_script_id)
+client_instance.ClientScore.get(application_id, partner_script_id)
     .exec(function(err, result) {
       var response = result.response;
       /**
@@ -73,7 +97,7 @@ client_instance.ClientScore.get(client_id, partner_script_id)
 ```
 ### Verification
 ```javascript
-client_instance.ClientVerification.get(client_id, partner_script_id)
+client_instance.ClientVerification.get(application_id, partner_script_id)
     .exec(function(err, result) {
       var response = result.response;
       /**
