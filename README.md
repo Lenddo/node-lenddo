@@ -12,36 +12,48 @@ All of the following examples assume you you have used the setup defined immedia
 ```javascript
 // Configuration - Both of these can be found after logging into the Partners Dashboard.
 // If you have difficulty obtaining these please contact your Lenddo account manager.
-var id = '{YOUR_API_USER_ID}';
-var secret = '{YOUR_API_SECRET}';
+const api_id = '{YOUR_API_USER_ID}';
+const api_secret = '{YOUR_API_SECRET}';
 
 // Import clients
-var lenddo_clients = require('lenddo').clients;
+const lenddo_clients = require('lenddo').clients;
 ```
 
 ## Submitting Onboarding Priority Data
 ```javascript
 // this is the application_id (formerly client_id) that you sent us initially.
-var application_id = '{YOUR_APPLICATION_ID}';
-var application_id = '{THE_UNIQUE_APPLICATION_IDENTIFIER}';
-var partner_script_id = '{THE_PARTNER_SCRIPT_FOR_THE_APPLICATION_ID}';
-var priority_data = '{THE_PARTNER_DATA_AND_VERIFICATION_DATA_TO_USE}';
+const application_id = 'ADONISTEST' + Date.now();
+const partner_script_id = '000000000000000000000000';
+const priority_data = { //The verification and partner data overwrites
+	verification_data: {
+		name: {
+			first: 'Adonis',
+			middle: 'Lee',
+			last: 'Villamor'
+		},
+
+	},
+	partner_data: {
+		some: 'data',
+		another: 'data'
+	}
+};
 
 // begin main script
-var AuthorizeService = lenddo_clients.Authorize;
-var authorize_client = new AuthorizeService(application_id, client_secret);
+const AuthorizeService = lenddo_clients.Authorize;
+const authorize_client = new AuthorizeService(api_id, api_secret);
 
 ```
 ### PriorityData
 ```javascript
 authorize_client.PriorityData.post(application_id, partner_script_id, priority_data)
-    .exec(function(err, result) {
+    .exec((err, result) => {
     	if (err) { //there should be no error
     		throw err;
     	} else if (result.response.code !== 200) {
     		throw new Error(result.response.raw); //throw the failed response from AUTHORIZE
     	}
-      var response = result.response;
+      const response = result.response;
       /**
       * the submission should be a success from here
       **/
@@ -52,18 +64,18 @@ authorize_client.PriorityData.post(application_id, partner_script_id, priority_d
 ## Score Service (Get User Score, Verification, etc.)
 ```javascript
 // this is the client ID that you sent us initially.
-var application_id = '{YOUR_APPLICATION_ID}';
-var partner_script_id = '{THE_PARTNER_SCRIPT_IDENTIFIER}';
+const application_id = '{YOUR_APPLICATION_ID}';
+const partner_script_id = '{THE_PARTNER_SCRIPT_IDENTIFIER}';
 
 // begin main script
-var ScoreService = lenddo_clients.Score;
-var client_instance = new ScoreService(id, secret);
+const ScoreService = lenddo_clients.Score;
+const client_instance = new ScoreService(api_id, api_secret);
 ```
 ### Application Score Card
 ```javascript
 client_instance.ApplicationScoreCard.get(application_id, partner_script_id)
     .exec(function(err, result) {
-      var response = result.response;
+      const response = result.response;
       console.log(response.data);
     });
 ```
@@ -71,7 +83,7 @@ client_instance.ApplicationScoreCard.get(application_id, partner_script_id)
 ```javascript
 client_instance.ApplicationFeatures.get(application_id, partner_script_id)
     .exec(function(err, result) {
-      var response = result.response;
+      const response = result.response;
       console.log(response.data);
     });
 ```
@@ -79,7 +91,7 @@ client_instance.ApplicationFeatures.get(application_id, partner_script_id)
 ```javascript
 client_instance.ApplicationMultipleScores.get(application_id, partner_script_id)
     .exec(function(err, result) {
-      var response = result.response;
+      const response = result.response;
       console.log(response.data);
     });
 ```
@@ -87,7 +99,7 @@ client_instance.ApplicationMultipleScores.get(application_id, partner_script_id)
 ```javascript
 client_instance.ClientScore.get(application_id, partner_script_id)
     .exec(function(err, result) {
-      var response = result.response;
+      const response = result.response;
       /**
       * response.data should look like the following:
       * { score: 521, flags: [] }
@@ -99,7 +111,7 @@ client_instance.ClientScore.get(application_id, partner_script_id)
 ```javascript
 client_instance.ClientVerification.get(application_id, partner_script_id)
     .exec(function(err, result) {
-      var response = result.response;
+      const response = result.response;
       /**
       * response.data should contain a large object detailing the verification results.
       **/
@@ -111,10 +123,10 @@ client_instance.ClientVerification.get(application_id, partner_script_id)
 If you have an implementation with our android SDK and want access to the mobile data stream please use the following API call:
 ```javascript
 // this is the partner script ID you used in the data SDK
-var partner_script_id = '{YOUR_PARTNER_SCRIPT_ID}';
+const partner_script_id = '{YOUR_PARTNER_SCRIPT_ID}';
 
-var NetworkService = lenddo_clients.Network;
-var client_instance = new NetworkService(id, secret);
+const NetworkService = lenddo_clients.Network;
+const client_instance = new NetworkService(api_id, api_secret);
 
 client_instance.MobileData.get(partner_script_id).exec(function(err, response) {
     /**
@@ -133,8 +145,8 @@ To use the whitelabel functionality you **must** use both of the following comma
 All of the Whitelabel functionality relies on the `Network Service`. You'll need to instantiate the Network Service Client in the following manner:
 
 ```javascript
-var NetworkService = require('lenddo').clients.Network;
-var client_instance = new NetworkService(id, secret);
+const NetworkService = require('lenddo').clients.Network;
+const client_instance = new NetworkService(api_id, api_secret);
 ```
 
 The remainder of the _WhiteLabel_ functionality documentation section will assume you're using `client_instance` as the variable name for your Network Service client, as the above example shows.
@@ -158,7 +170,7 @@ At this stage you must have:
 
 #### Sample Token Submission Code
 ```javascript
-var profile_ids = [];
+const profile_ids = [];
 
 client_instance.ClientToken.post(application_id, partner_script_id, provider, token).exec(function (err, data) {
 	if (err) {
@@ -192,10 +204,10 @@ This step is optional and not necessary if you are not using Lenddo's Verificati
 
 ##### Verification Sample Code 
 ```javascript
-var VerificationObject = require('lenddo').verification;
+const VerificationObject = require('lenddo').verification;
 
 // Get an instance of the verification object
-var user_verification = new VerificationObject();
+const user_verification = new VerificationObject();
 // Define probes to be verified (Everything is optional)
 user_verification.set.firstName('John')
                 .middleName('J')

@@ -1,10 +1,13 @@
 {
+  "parserOptions": {
+    "ecmaVersion": 2017
+  },
   "env": {
     "browser": true,
     "node": true,
-    "mocha": true,
     "es6": true
   },
+  "globals": {},
   "rules": {
     "no-extend-native": 2,
     "no-extra-parens": 0,
@@ -15,6 +18,10 @@
         "functions": false
       }
     ],
+    "prefer-const": ["error", {
+      "destructuring": "any",
+      "ignoreReadBeforeAssign": false
+    }],
     "max-statements": [
       2,
       20
@@ -65,8 +72,8 @@
     "one-var": [
       2,
       {
-        "uninitialized": "always",
-        "initialized": "never"
+        "initialized": "never",
+        "uninitialized": "always"
       }
     ],
     "newline-after-var": [
@@ -85,7 +92,6 @@
       2,
       {}
     ],
-    "func-names": [ "error", "never" ],
-    "brace-style": [ "error", "1tbs" ]
+    "func-names": 2
   }
 }
