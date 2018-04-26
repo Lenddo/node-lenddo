@@ -1,10 +1,8 @@
 language: node_js
 node_js:
-  0.10
-  0.11
-  0.12
-  4.0
-  4.1
+  4.9
+  6.14
+  8.11
 
 notifications:
   slack: lenddo:iJYeCC5sZSx2A0BW5dvgZiBe
