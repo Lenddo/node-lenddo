@@ -1,36 +1,36 @@
 "use strict";
 
-var lib = require('../../index');
-var baseClient = require('../../lib/clients/_base').Client;
+const lib = require('../../index');
+const baseClient = require('../../lib/clients/_base').Client;
 
-describe('/index', function() {
-	it('should have a clients obect', function() {
+describe('/index', function () {
+	it('should have a clients obect', function () {
 		lib.should.have.property('clients');
 		lib.clients.should.be.an.Object;
 	});
 
-	describe('#clients', function() {
-		describe('#_base', function() {
-			it('Should exist and be an object', function() {
+	describe('#clients', function () {
+		describe('#_base', function () {
+			it('Should exist and be an object', function () {
 				lib.clients.should.have.property('_base');
 				lib.clients._base.should.be.an.Object;
 			});
 		});
 
-		describe('#Authorize', function() {
-			it('Should exist and be an object', function() {
+		describe('#Authorize', function () {
+			it('Should exist and be an object', function () {
 				lib.clients.should.have.property('Authorize').Object;
 				lib.clients.Authorize.should.be.an.Object;
 			});
 
-			it('Should be an instance of client', function() {
-				var authorize_client = new lib.clients.Authorize();
+			it('Should be an instance of client', function () {
+				const authorize_client = new lib.clients.Authorize();
 
 				authorize_client.should.be.an.instanceOf(baseClient);
 			});
 
-			it('Should validate application_id', function(done) {
-				var authorize_client = new lib.clients.Authorize();
+			it('Should validate application_id', function (done) {
+				const authorize_client = new lib.clients.Authorize();
 
 				try {
 					authorize_client.PriorityData.post('s');
@@ -41,8 +41,8 @@ describe('/index', function() {
 				}
 			});
 
-			it('Should validate partner_script_id', function(done) {
-				var authorize_client = new lib.clients.Authorize();
+			it('Should validate partner_script_id', function (done) {
+				const authorize_client = new lib.clients.Authorize();
 
 				try {
 					authorize_client.PriorityData.post('adonis', '3423randomness');
@@ -53,8 +53,8 @@ describe('/index', function() {
 				}
 			});
 
-			it('Should validate priority_data_id', function(done) {
-				var authorize_client = new lib.clients.Authorize();
+			it('Should validate priority_data_id', function (done) {
+				const authorize_client = new lib.clients.Authorize();
 
 				try {
 					authorize_client.PriorityData.post('adonis', '123456789abcdef123456789', 'should be an object');
@@ -66,8 +66,8 @@ describe('/index', function() {
 			});
 
 			//this test should be skipped and will be used in dev mode only
-			it.skip('Should trigger the endpoint properly (please do not run with prod env)', function(done) {
-				var authorize_client = new lib.clients.Authorize();
+			it.skip('Should trigger the endpoint properly (please do not run with prod env)', function (done) {
+				const authorize_client = new lib.clients.Authorize();
 
 				authorize_client.config(
 					'ad0215000000000000000001',
@@ -76,7 +76,7 @@ describe('/index', function() {
 
 				try {
 					return authorize_client.PriorityData.post('adonis', '000000000000000000000002', {}
-					).exec(function (err,data) {
+					).exec(function (err, data) {
 						if (err) {
 							throw err;
 						} else if (data.response.code >= 400) {
@@ -91,27 +91,27 @@ describe('/index', function() {
 			});
 		});
 
-		describe('#Score', function() {
-			it('Should exist and be an object', function() {
+		describe('#Score', function () {
+			it('Should exist and be an object', function () {
 				lib.clients.should.have.property('Score');
 				lib.clients.Score.should.be.an.Object;
 			});
 
-			it('Should be an instance of client', function() {
-				var score_client = new lib.clients.Score();
+			it('Should be an instance of client', function () {
+				const score_client = new lib.clients.Score();
 
 				score_client.should.be.an.instanceOf(baseClient);
 			});
 		});
 
-		describe('#Network', function() {
-			it('Should exist and be an object', function() {
+		describe('#Network', function () {
+			it('Should exist and be an object', function () {
 				lib.clients.should.have.property('Network').Object;
 				lib.clients.Network.should.be.an.Object;
 			});
 
-			it('Should be an instance of client', function() {
-				var network_client = new lib.clients.Network();
+			it('Should be an instance of client', function () {
+				const network_client = new lib.clients.Network();
 
 				network_client.should.be.an.instanceOf(baseClient);
 			});
