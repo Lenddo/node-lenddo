@@ -1,11 +1,10 @@
 [![Build Status](https://travis-ci.org/Lenddo/node-lenddo.svg?branch=master)](https://travis-ci.org/Lenddo/node-lenddo) [![npm](https://img.shields.io/npm/v/lenddo.svg?style=plastic)](https://www.npmjs.com/package/lenddo) [![npm](https://img.shields.io/npm/l/lenddo.svg?style=plastic)](https://www.npmjs.com/package/lenddo)
 # Lenddo Service Client
-Please reference the /sample/implementation.js file for an example on how
-you can implement the Lenddo REST services.
+Please reference the /sample/implementation.js file for an example on how you can implement the Lenddo REST services.
+*As of version 2.0, the exec call returns a promise instead of callback. please use this as standard moving forward.
 
 # Installing the package
-Please perform the following command to install Lenddo into your
-node.js codebase: `npm install lenddo`
+Please perform the following command to install Lenddo into your node.js codebase: `npm install lenddo`
 
 # Sample Usage
 All of the following examples assume you you have used the setup defined immediately below. This is used to structure your request to our API.
@@ -19,7 +18,7 @@ const api_secret = '{YOUR_API_SECRET}';
 const lenddo_clients = require('lenddo').clients;
 ```
 
-## Submitting Onboarding Priority Data
+## Authorize Service
 ```javascript
 // this is the application_id (formerly client_id) that you sent us initially.
 const application_id = 'ADONISTEST' + Date.now();
@@ -46,19 +45,27 @@ const authorize_client = new AuthorizeService(api_id, api_secret);
 ```
 ### PriorityData
 ```javascript
-authorize_client.PriorityData.post(application_id, partner_script_id, priority_data)
-    .exec((err, result) => {
-    	if (err) { //there should be no error
-    		throw err;
-    	} else if (result.response.code !== 200) {
-    		throw new Error(result.response.raw); //throw the failed response from AUTHORIZE
-    	}
-      const response = result.response;
-      /**
-      * the submission should be a success from here
-      **/
-      console.log(response.data);
-    });
+authorize_client.PriorityData.post(application_id, partner_script_id, priority_data).exec()
+	.then((result) => {
+		const response = result.response;
+		/**
+		* the submission should be a success from here
+		**/
+		console.log(response.data);
+	}).catch((err) => {
+		console.error(err);
+	});
+```
+
+```
+### Configured Sessions
+```javascript
+authorize_client.submitConfiguredSession(partner_script_id, application_id, verification_data, partner_data)
+	.then((short_url) => {
+		console.log('Please go to ' + short_url);
+	}).catch((err) => {
+		console.error(err);
+	});
 ```
 
 ## Score Service (Get User Score, Verification, etc.)
@@ -73,50 +80,60 @@ const client_instance = new ScoreService(api_id, api_secret);
 ```
 ### Application Score Card
 ```javascript
-client_instance.ApplicationScoreCard.get(application_id, partner_script_id)
-    .exec(function(err, result) {
+client_instance.ApplicationScoreCard.get(application_id, partner_script_id).exec()
+	.then((result) => {
       const response = result.response;
       console.log(response.data);
-    });
+	}).catch((err) => {
+		console.error(err);
+	});
 ```
 ### Application Features
 ```javascript
-client_instance.ApplicationFeatures.get(application_id, partner_script_id)
-    .exec(function(err, result) {
+client_instance.ApplicationFeatures.get(application_id, partner_script_id).exec()
+	.then((result) => {
       const response = result.response;
       console.log(response.data);
-    });
+	}).catch((err) => {
+		console.error(err);
+	});
 ```
 ### Application Multiple Scores
 ```javascript
-client_instance.ApplicationMultipleScores.get(application_id, partner_script_id)
-    .exec(function(err, result) {
+client_instance.ApplicationMultipleScores.get(application_id, partner_script_id).exec()
+	.then((result) => {
       const response = result.response;
       console.log(response.data);
-    });
+	}).catch((err) => {
+		console.error(err);
+	});
 ```
 ### Score
 ```javascript
-client_instance.ClientScore.get(application_id, partner_script_id)
-    .exec(function(err, result) {
+client_instance.ClientScore.get(application_id, partner_script_id).exec()
+	.then((result) => {
       const response = result.response;
       /**
       * response.data should look like the following:
       * { score: 521, flags: [] }
       **/
       console.log(response.data);
-    });
+	}).catch((err) => {
+		console.error(err);
+	});
 ```
 ### Verification
 ```javascript
-client_instance.ClientVerification.get(application_id, partner_script_id)
-    .exec(function(err, result) {
+client_instance.ClientVerification.get(application_id, partner_script_id).exec()
+	.then((result) => {
       const response = result.response;
       /**
       * response.data should contain a large object detailing the verification results.
       **/
       console.log(response.data);
-    });
+	}).catch((err) => {
+		console.error(err);
+	});
 ```
 
 ## Retrieving the MobileData
@@ -128,13 +145,16 @@ const partner_script_id = '{YOUR_PARTNER_SCRIPT_ID}';
 const NetworkService = lenddo_clients.Network;
 const client_instance = new NetworkService(api_id, api_secret);
 
-client_instance.MobileData.get(partner_script_id).exec(function(err, response) {
-    /**
-    * Here you will see a dump of the data received. Please consult with your Lenddo account manager
-    * for documentation regarding the schema that you can expect to see here.
-    */
-    console.log(response.data);
-});
+client_instance.MobileData.get(partner_script_id).exec()
+	.then((result) => {
+		/**
+		* Here you will see a dump of the data received. Please consult with your Lenddo account manager
+		* for documentation regarding the schema that you can expect to see here.
+		*/
+		console.log(response.data);
+	}).catch((err) => {
+		console.error(err);
+	});
 ```
 
 ## Whitelabel Functionality
@@ -172,27 +192,26 @@ At this stage you must have:
 ```javascript
 const profile_ids = [];
 
-client_instance.ClientToken.post(application_id, partner_script_id, provider, token).exec(function (err, data) {
-	if (err) {
+client_instance.ClientToken.post(application_id, partner_script_id, provider, token).exec()
+	.then((data) => {
+		if (data.response.code >= 500) {
+			// Something went wrong on Lenddo's side. If this continues, contact Lenddo.
+			throw data.response.data;
+		}
+		
+		if (data.response.code >= 400) {
+			// This occurs when the request was incorrect
+			throw data.response.data;
+		}
+		
+		// The profile ID returned from the Service. This is very important. Save it.
+		profile_ids.push( data.response.data.profile_id );
+		
+		// !!! Begin Step 2 of Whitelabel Integration Here.
+	}).catch((err) => {
 		// This is only triggered during network connectivity issues
-		throw err;
-	}
-	
-	if (data.response.code >= 500) {
-		// Something went wrong on Lenddo's side. If this continues, contact Lenddo.
-		throw data.response.data;
-	}
-	
-	if (data.response.code >= 400) {
-		// This occurs when the request was incorrect
-		throw data.response.data;
-	}
-	
-	// The profile ID returned from the Service. This is very important. Save it.
-	profile_ids.push( data.response.data.profile_id );
-	
-	// !!! Begin Step 2 of Whitelabel Integration Here.
-});
+		console.error(err);
+	});
 ```
 
 ### Step 2. Application Submission _(CommitClientJob.post)_
@@ -224,13 +243,8 @@ The remainder of this section will assume you've created a verification object w
 
 #### Sample Application Submission Code
 ```javascript
-client_instance.CommitClientJob.post(application_id, partner_script_id, profile_ids, user_verification)
-    .exec(function(err, data) {
-    	if (err) {
-            // This is only triggered during network connectivity issues
-            throw err;
-        }
-        
+client_instance.CommitClientJob.post(application_id, partner_script_id, profile_ids, user_verification).exec()
+	.then((result) => {
         if (data.response.code >= 500) {
             // Something went wrong on Lenddo's side. If this continues, contact Lenddo.
             throw data.response.data;
@@ -247,5 +261,8 @@ client_instance.CommitClientJob.post(application_id, partner_script_id, profile_
     		// Application submission failed.
     		throw data.response.data;
         }
-    });
+	}).catch((err) => {
+        // This is only triggered during network connectivity issues
+		console.error(err);
+	});
 ```
