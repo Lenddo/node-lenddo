@@ -1,15 +1,15 @@
 "use strict";
 
-var Client = require('../../../../lib/clients/_base/client');
-var Authentication = require('../../../../lib/clients/_base/authentication').Authentication;
+const Client = require('../../../../lib/clients/_base/client');
+const Authentication = require('../../../../lib/clients/_base/authentication').Authentication;
 
-describe('client/_base', function() {
-	describe('client', function() {
-		var client = new Client();
+describe('client/_base', function () {
+	describe('client', function () {
+		const client = new Client();
 
-		describe('request methods', function() {
-			it('should provide REST methods', function() {
-				client.config(1,2,"http://noop.lenddo.com");
+		describe('request methods', function () {
+			it('should provide REST methods', function () {
+				client.config(1, 2, "http://noop.lenddo.com");
 				client.should.have.property('get').Function;
 				client.should.have.property('post').Function;
 				client.should.have.property('put').Function;
@@ -18,37 +18,37 @@ describe('client/_base', function() {
 			})
 		});
 
-		describe('#config', function() {
-			it('should return itself', function() {
-				client.config(1,2,"http://noop.lenddo.com").should.equal(client);
+		describe('#config', function () {
+			it('should return itself', function () {
+				client.config(1, 2, "http://noop.lenddo.com").should.equal(client);
 			});
 
-			it('should set an authentication property.', function() {
-				client.config(1,2,"http://noop.lenddo.com");
+			it('should set an authentication property.', function () {
+				client.config(1, 2, "http://noop.lenddo.com");
 				client.authentication.should.be.instanceOf(Authentication);
 			});
 
-			it('should set the configuration property', function() {
-				client.config(1,2,"https://noop.lenddo.com");
+			it('should set the configuration property', function () {
+				client.config(1, 2, "https://noop.lenddo.com");
 				client.should.have.ownProperty('configuration');
 				client.configuration.should.eql({
-					id:1, secret:2, host:{ domain:"noop.lenddo.com", port:443, scheme: 'https' }
+					id: 1, secret: 2, host: {domain: "noop.lenddo.com", port: 443, scheme: 'https'}
 				});
 			})
 		});
 
-		describe('#request', function() {
-			var client = new Client();
+		describe('#request', function () {
+			const client = new Client();
 
 			client.config(
-					'be22ce0b9875611d10606e1a',
-					'$2a$10$Ik0yU.RmEsI8Pr1lLVgTn.SPdFIA2tcoy/frKl3rUcTVD5GvYimli',
-					'https://noop.lenddo.com'
+				'be22ce0b9875611d10606e1a',
+				'$2a$10$Ik0yU.RmEsI8Pr1lLVgTn.SPdFIA2tcoy/frKl3rUcTVD5GvYimli',
+				'https://noop.lenddo.com'
 			);
 
-			it('should allow a request to be made with a stub method.', function() {
-				[ 'get', 'post', 'put', 'delete', 'options' ].forEach(function(method) {
-					var requestOptions = client[method]('foo').requestState().options;
+			it('should allow a request to be made with a stub method.', function () {
+				[ 'get', 'post', 'put', 'delete', 'options' ].forEach(function (method) {
+					const requestOptions = client[method]('foo').requestState().options;
 
 					requestOptions.should.have.property('host').and.equal('noop.lenddo.com');
 					requestOptions.should.have.property('port').and.equal(443);
@@ -58,15 +58,15 @@ describe('client/_base', function() {
 				})
 			});
 
-			it('should encode the body', function() {
-				var request = client.post('foo').body({bar:'baz', pets: {cat:[ 0 ], dog:[ 4,2,{you:'know'} ]}});
+			it('should encode the body', function () {
+				const request = client.post('foo').body({bar: 'baz', pets: {cat: [ 0 ], dog: [ 4, 2, {you: 'know'} ]}});
 
 				request.requestState().body.should.equal('{"bar":"baz","pets":{"cat":[0],"dog":[4,2,{"you":"know"}]}}');
 			});
 
-			it('should encode the query', function() {
-				var request = client.get('bar').query({
-					filter:'dogs',
+			it('should encode the query', function () {
+				const request = client.get('bar').query({
+					filter: 'dogs',
 					delete: [ 'cats', 'alligators' ],
 					eat: [ 'pizza', 'garlic bread' ]
 				});
@@ -77,9 +77,9 @@ describe('client/_base', function() {
 
 			describe('headers', function () {
 				it('should properly set the Content-Length value.', function () {
-					var request = client.post('bar').body({ "foo": "abc![]ñáéí" });
+					const request = client.post('bar').body({"foo": "abc![]ñáéí"});
 
-					request.requestState().options.headers[ 'Content-length' ].should.equal(24);
+					request.requestState().options.headers['Content-length'].should.equal(24);
 				});
 			});
 		});
