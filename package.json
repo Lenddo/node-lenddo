@@ -15,7 +15,7 @@
   "repository": "github:Lenddo/node-lenddo",
   "devDependencies": {
     "istanbul": "^0.4.2",
-    "mocha": "^2.3.3",
+    "mocha": "^5.2.0",
     "should": "^7.1.0"
   }
 }
